@@ -1,5 +1,7 @@
 # BTC-Koii: Bitcoin Mining Pools on Koii Network
 
+resolves: https://github.com/koii-network/koii-improvement-proposals/issues/31
+
 ## Overview
 This project implements Bitcoin mining pools using Koii nodes via Orca tasks, with reward distribution on K2. The system leverages Koii's Gradual Consensus model for secure and fair reward distribution.
 
