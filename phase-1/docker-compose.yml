@@ -1,25 +1,22 @@
 version: '3.8'
 
 services:
-  miner:
+  mining_task:
     build:
       context: .
       dockerfile: docker/Dockerfile
     volumes:
       - ./config:/app/config
-      - ./scripts:/app/scripts
       - ./data:/app/data
       - ./logs:/app/logs
     ports:
       - "8080:8080"
       - "8081:8081"
-      - "8332:8332"
-      - "8333:8333"
     environment:
-      - BITCOIN_DATA=/app/data
-      - BITCOIN_CONF=/app/config/bitcoin.conf
+      - FLASK_ENV=development
+      - PYTHONPATH=/app
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -40,7 +37,7 @@ services:
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
     depends_on:
-      miner:
+      mining_task:
         condition: service_healthy
     restart: unless-stopped
 

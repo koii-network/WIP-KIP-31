@@ -1,85 +1,91 @@
 # Bitcoin Mining Test Environment
 
-This directory contains a test environment for validating Bitcoin mining operations within Koii's Orca task framework.
+This directory contains a test environment for Bitcoin mining using Koii nodes. The environment includes a Bitcoin miner, monitoring system, and test scripts.
 
-## Directory Structure
+## Components
 
-```
-test/
-├── docker/           # Docker-related files
-├── scripts/          # Python scripts
-├── config/          # Configuration files
-├── data/            # Persistent data
-└── logs/            # Log files
-```
+### 1. Miner Service
+- Runs a Bitcoin miner using cpuminer
+- Provides health and metrics endpoints
+- Collects and stores mining shares
+- Exposes Prometheus metrics
 
-## Prerequisites
+### 2. Monitoring System
+- Prometheus for metrics collection
+- Grafana for visualization
+- Alert rules for mining performance
+- Health checks and timeouts
 
-- Docker
-- Docker Compose
-- Python 3.8+
-- Git
+### 3. Test Scripts
+- `miner.py`: Main miner service
+- `monitor.py`: Monitoring service
+- `test.py`: Test runner
 
 ## Setup
 
-1. Build and start the containers:
+1. Install dependencies:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+2. Build and start the environment:
 ```bash
 docker-compose up --build
 ```
 
-2. Access the services:
-- Miner API: http://localhost:8080
-- Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000
+3. Run the test:
+```bash
+python scripts/test.py
+```
 
 ## Monitoring
 
-The environment includes:
-- Prometheus for metrics collection
-- Grafana for visualization
-- Custom monitoring scripts
+- Miner API: http://localhost:8080
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3000 (admin/admin)
 
-## Testing
+## Metrics
 
-1. Check miner health:
-```bash
-curl http://localhost:8080/health
-```
+The following metrics are collected:
 
-2. View mining statistics:
-```bash
-curl http://localhost:8080/stats
-```
+- Hash rate (H/s)
+- CPU usage (%)
+- Memory usage (MB)
+- Shares submitted
+- Valid shares
+- Invalid shares
+- Uptime
+
+## Alerts
+
+The following alerts are configured:
+
+1. Miner Down
+2. High CPU Usage
+3. High Memory Usage
+4. No Valid Shares
+5. High Invalid Share Rate
 
 ## Logs
 
-Logs are stored in the `logs` directory and can be accessed through Docker:
-```bash
-docker-compose logs -f miner
-```
+Logs are stored in the `logs` directory:
+- `miner.log`: Miner service logs
+- `monitor.log`: Monitoring service logs
+- `test.log`: Test execution logs
+
+## Data
+
+Mining shares are stored in SQLite database:
+- Location: `data/shares.db`
+- Schema: See `miner.py` for details
 
 ## Configuration
 
-- Bitcoin configuration: `config/bitcoin.conf`
-- Prometheus configuration: `config/prometheus.yml`
-- Docker configuration: `docker-compose.yml`
-
-## Troubleshooting
-
-1. Check container status:
-```bash
-docker-compose ps
-```
-
-2. View container logs:
-```bash
-docker-compose logs [service_name]
-```
-
-3. Restart services:
-```bash
-docker-compose restart [service_name]
-```
+- `config/bitcoin.conf`: Bitcoin Core configuration
+- `config/prometheus.yml`: Prometheus configuration
+- `config/rules.yml`: Alert rules
 
 ## Cleanup
 

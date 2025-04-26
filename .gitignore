@@ -34,3 +34,9 @@ target/
 *.dat
 *.bin
 test/data/
+
+# Logs and temporary files
+*.log
+logs/
+/data/
+/tmp/

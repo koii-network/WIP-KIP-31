@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  miner:
+    build:
+      context: .
+      dockerfile: phase-0/test/docker/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - ./phase-1/src:/app/src
+      - ./phase-1/scripts:/app/scripts
+      - ./logs:/app/logs
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python3 /app/src/mining_task.py 

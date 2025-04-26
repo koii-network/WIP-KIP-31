@@ -1,0 +1,47 @@
+groups:
+  - name: mining_alerts
+    rules:
+      - alert: MinerDown
+        expr: up{job="miner_api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Miner API is down"
+          description: "The miner API has been down for more than 1 minute"
+
+      - alert: HighCPUUsage
+        expr: miner_cpu_usage > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is above 90% for 5 minutes"
+
+      - alert: HighMemoryUsage
+        expr: miner_memory_usage > 1000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is above 1GB for 5 minutes"
+
+      - alert: NoValidShares
+        expr: rate(miner_valid_shares[5m]) == 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "No valid shares"
+          description: "No valid shares have been submitted in the last 10 minutes"
+
+      - alert: HighInvalidShareRate
+        expr: rate(miner_invalid_shares[5m]) / rate(miner_shares_submitted[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High invalid share rate"
+          description: "More than 10% of shares are invalid in the last 5 minutes" 
