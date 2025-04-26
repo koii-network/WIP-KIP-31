@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  miner:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./config:/app/config
+      - ./scripts:/app/scripts
+      - ./data:/app/data
+      - ./logs:/app/logs
+    ports:
+      - "8080:8080"
+      - "8332:8332"
+      - "8333:8333"
+    environment:
+      - BITCOIN_DATA=/app/data
+      - BITCOIN_CONF=/app/config/bitcoin.conf
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - miner
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped 
