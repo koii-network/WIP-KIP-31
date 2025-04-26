@@ -18,7 +18,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('/app/logs/mining_task.log'),
+        logging.FileHandler('logs/mining_task.log'),
         logging.StreamHandler()
     ]
 )
@@ -44,7 +44,7 @@ round_number = Gauge('mining_round', 'Current mining round number')
 
 def init_db():
     try:
-        conn = sqlite3.connect('/app/data/shares.db')
+        conn = sqlite3.connect('data/shares.db')
         c = conn.cursor()
         c.execute('''CREATE TABLE IF NOT EXISTS shares
                      (id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -66,7 +66,7 @@ def init_db():
 
 def store_share(round_num, hash_value, difficulty, valid, block_height, worker_id, submission_id):
     try:
-        conn = sqlite3.connect('/app/data/shares.db')
+        conn = sqlite3.connect('data/shares.db')
         c = conn.cursor()
         c.execute('''INSERT INTO shares 
                      (round_number, timestamp, hash, difficulty, valid, block_height, worker_id, submission_id)
@@ -83,20 +83,13 @@ def store_share(round_num, hash_value, difficulty, valid, block_height, worker_i
 @app.route('/task/<int:round_number>', methods=['GET'])
 def get_task(round_number):
     try:
-        # Get current mining parameters
-        response = requests.get('http://localhost:8080/stats')
-        if response.status_code != 200:
-            return jsonify({'error': 'Failed to get mining stats'}), 500
-        
-        stats = response.json()
-        
-        # Return task parameters
+        # Return task parameters with default values
         return jsonify({
             'round_number': round_number,
-            'target_difficulty': 1.0,  # Example value
-            'hash_rate': stats['hash_rate'],
-            'valid_shares': stats['valid_shares'],
-            'invalid_shares': stats['invalid_shares']
+            'target_difficulty': 1.0,
+            'hash_rate': hash_rate._value.get() if hasattr(hash_rate, '_value') else 0,
+            'valid_shares': valid_shares._value.get() if hasattr(valid_shares, '_value') else 0,
+            'invalid_shares': invalid_shares._value.get() if hasattr(invalid_shares, '_value') else 0
         })
     except Exception as e:
         logging.error(f"Error getting task: {e}")
@@ -143,7 +136,7 @@ def submit_share(round_number):
 @app.route('/audit', methods=['GET'])
 def audit():
     try:
-        conn = sqlite3.connect('/app/data/shares.db')
+        conn = sqlite3.connect('data/shares.db')
         c = conn.cursor()
         
         # Get audit statistics
@@ -205,7 +198,7 @@ if __name__ == '__main__':
         init_db()
         
         # Start Prometheus metrics server
-        start_http_server(8081)
+        start_http_server(8082)
         health_status['metrics'] = True
         logging.info("Started metrics server")
         
@@ -217,7 +210,8 @@ if __name__ == '__main__':
         
         # Start Flask app
         health_status['api'] = True
-        app.run(host='0.0.0.0', port=8080)
+        port = int(os.environ.get('PORT', 8080))
+        app.run(host='0.0.0.0', port=port)
     except Exception as e:
         logging.error(f"Error in main: {e}")
         sys.exit(1) 
