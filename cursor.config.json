@@ -1,0 +1,60 @@
+{
+  "project": {
+    "name": "BTC-Koii",
+    "description": "Bitcoin mining pools on Koii Network",
+    "rules": {
+      "planAdherence": true,
+      "documentDeviations": true,
+      "protectMasterPlan": true,
+      "enforcePhaseStructure": true
+    }
+  },
+  "aiAgent": {
+    "guidance": [
+      {
+        "directive": "plan_adherence",
+        "instruction": "Only implement features specified in the plan documents. For anything not in the plan, suggest creating a plan_update.md in the appropriate phase directory."
+      },
+      {
+        "directive": "phase_boundaries",
+        "instruction": "Respect phase boundaries and do not modify files across different phase directories without explicit instruction."
+      },
+      {
+        "directive": "documentation",
+        "instruction": "Document code thoroughly and ensure all implementations reference the specific plan sections they fulfill."
+      },
+      {
+        "directive": "testing",
+        "instruction": "Ensure tests validate both original requirements and any approved modifications."
+      },
+      {
+        "directive": "obstacle_handling",
+        "instruction": "When encountering technical obstacles, document them in a plan_update.md file with considered alternatives and chosen solutions."
+      }
+    ],
+    "requiredContext": [
+      "/plan.md",
+      "/phase-0/plan.md",
+      "/directives/*.md"
+    ],
+    "prohibitedActions": [
+      "Modifying master plan",
+      "Implementing features not in plan without documentation",
+      "Crossing phase boundaries",
+      "Hallucinating project requirements"
+    ]
+  },
+  "integrations": {
+    "knoSdk": {
+      "enabled": true,
+      "embeddingPath": "/.kno",
+      "useDirectiveEmbeddings": true
+    }
+  },
+  "toolConfig": {
+    "initialization": "When starting a session, read all directives in the /directives folder",
+    "suggestions": "Only suggest implementations that conform to plan documents",
+    "completions": "Include references to plan sections in code comments",
+    "codeGeneration": "Validate all generated code against plan requirements"
+  }
+}

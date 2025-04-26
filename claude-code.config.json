@@ -1,0 +1,33 @@
+{
+  "project": "BTC-Koii",
+  "version": "1.0.0",
+  "description": "Bitcoin mining pools on Koii Network",
+  "directives": [
+    "run_until_working.md",
+    "start_next_phase.md",
+    "time_bounded_testing.md",
+    "prevent_hallucinations.md"
+  ],
+  "rules": [
+    "Follow instructions from the plan and don't do anything else unless explicitly specified",
+    "Consult phase-specific plan before implementing any code changes",
+    "Create plan_update.md files in phase directories for any deviations",
+    "Never modify the master plan in the project root",
+    "Ensure testing accounts for both original requirements and any modifications",
+    "Document all technical obstacles and their solutions",
+    "Respect phase boundaries and directory structure",
+    "Validate implementations against the applicable plan documents",
+    "Reference specific plan sections when explaining implementations",
+    "Alert the user when a requested change would violate plan directives"
+  ],
+  "planPath": "/plan.md",
+  "phaseDocuments": [
+    "/phase-0/plan.md"
+  ],
+  "directivesPath": "/directives",
+  "knoEmbeddingsPath": "/.kno",
+  "strictMode": true,
+  "requirePlanReference": true,
+  "alertOnDeviation": true,
+  "systemPromptAddendum": "You must strictly adhere to the BTC-Koii project directives. Always consult the plan documents before implementing any code. Create plan_update.md files within phase directories for any deviations, but never modify the master plan. All implementations must be validated against the plan."
+}
