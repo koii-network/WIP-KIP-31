@@ -1,0 +1,13 @@
+/opt/koii-mining/logs/*.log {
+    daily
+    missingok
+    rotate 14
+    compress
+    delaycompress
+    notifempty
+    create 0640 koii koii
+    sharedscripts
+    postrotate
+        systemctl reload koii-mining > /dev/null 2>&1 || true
+    endscript
+} 

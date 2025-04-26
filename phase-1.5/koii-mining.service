@@ -1,0 +1,17 @@
+[Unit]
+Description=Koii Mining Task API
+After=network.target
+
+[Service]
+User=koii
+Group=koii
+WorkingDirectory=/opt/koii-mining
+Environment=PORT=8080
+Environment=LOG_LEVEL=INFO
+Environment=DB_PATH=/opt/koii-mining/data/shares.db
+ExecStart=/opt/koii-mining/start.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target 

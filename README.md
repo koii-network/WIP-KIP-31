@@ -40,6 +40,12 @@ This repository implements legitimate Bitcoin mining pool functionality on the K
 - Implement required endpoints
 - Local Docker testing and validation
 
+### Phase 1.5: Task Deployment Testing
+- Systemd service configuration for production deployment
+- Environment variable management
+- Process supervision and automatic restart
+- Server configuration with Gunicorn
+
 ### Phase 2-5
 See [implementation plan](plan.md) for details on later phases.
 
@@ -60,6 +66,7 @@ See [implementation plan](plan.md) for details on later phases.
 - [Main Implementation Plan](plan.md)
 - [Phase 0 Plan](phase-0/plan.md)
 - [Test Documentation](phase-0/test/README.md)
+- [Phase 1.5 Deployment](phase-1.5/koii-mining.service)
 - [KNO SDK Usage](KNO_SDK_README.md)
 
 ## KNO SDK Integration
