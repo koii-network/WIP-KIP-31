@@ -1,0 +1,8 @@
+{
+  "repo": "btc-koii",
+  "branch": "main",
+  "timestamp": 1745660854257,
+  "commit": "071583a",
+  "embedding_method": "SBERTEmbedding",
+  "description": "Basic KNO SDK placeholder database"
+}

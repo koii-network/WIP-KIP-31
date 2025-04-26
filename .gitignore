@@ -13,7 +13,7 @@ __pycache__/
 *.egg
 
 # KNO SDK
-.kno/
+# .kno/ - Uncommenting this line to include the .kno directory in version control
 
 # IDE files
 .idea/
