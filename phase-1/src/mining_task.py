@@ -44,6 +44,9 @@ round_number = Gauge('mining_round', 'Current mining round number')
 
 def init_db():
     try:
+        # Create data directory if it doesn't exist
+        os.makedirs('data', exist_ok=True)
+        
         conn = sqlite3.connect('data/shares.db')
         c = conn.cursor()
         c.execute('''CREATE TABLE IF NOT EXISTS shares

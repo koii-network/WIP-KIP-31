@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  btc_wrapper:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8082:8082"
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+      - ../config:/app/config
+    environment:
+      - PYTHONPATH=/app
+      - FLASK_APP=src/btc_wrapper.py
+      - FLASK_ENV=production
+    networks:
+      - k2_network
+    depends_on:
+      - bitcoin_node
+      - k2_node
+
+  bitcoin_node:
+    image: ruimarinho/bitcoin-core:latest
+    ports:
+      - "8332:8332"
+    volumes:
+      - bitcoin_data:/home/bitcoin/.bitcoin
+    command: bitcoind -regtest -rpcallowip=0.0.0.0/0 -rpcbind=0.0.0.0 -rpcuser=user -rpcpassword=pass
+    networks:
+      - k2_network
+
+  k2_node:
+    image: ethereum/client-go:latest
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+    volumes:
+      - k2_data:/root/.ethereum
+    command: --dev --http --http.addr 0.0.0.0 --http.api eth,net,web3,personal --http.corsdomain "*"
+    networks:
+      - k2_network
+
+volumes:
+  bitcoin_data:
+  k2_data:
+
+networks:
+  k2_network:
+    driver: bridge 
