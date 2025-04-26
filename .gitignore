@@ -1,0 +1,36 @@
+# Python virtual environments
+venv/
+env/
+.env/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.installed.cfg
+*.egg
+
+# KNO SDK
+.kno/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Build and distribution
+build/
+dist/
+target/
+
+# Bitcoin related
+*.dat
+*.bin
+test/data/
