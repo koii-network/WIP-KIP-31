@@ -1,0 +1,65 @@
+{
+  "name": "timestamp-nano",
+  "description": "Timestamp for 64-bit time_t, nanosecond precision and strftime",
+  "version": "1.0.1",
+  "author": "@kawanet",
+  "browser": "./dist/timestamp.min.js",
+  "bugs": {
+    "url": "https://github.com/kawanet/timestamp-nano/issues"
+  },
+  "contributors": [
+    "Yusuke Kawasaki <u-suke@kawa.net>",
+    "Trevor Robinson <tprobinson93@protonmail.com>"
+  ],
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "int64-buffer": "^1.0.1",
+    "jshint": "^2.13.6",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "strftime": "^0.10.1",
+    "typedoc": "^0.13.0",
+    "uglify-js": "^3.17"
+  },
+  "engines": {
+    "node": ">= 4.5.0"
+  },
+  "files": [
+    "browser/import.js",
+    "dist/timestamp.min.js",
+    "timestamp.js",
+    "typings/timestamp.d.ts"
+  ],
+  "homepage": "https://github.com/kawanet/timestamp-nano#readme",
+  "jshintConifg": {
+    "undef": true,
+    "unused": true,
+    "node": true
+  },
+  "keywords": [
+    "date",
+    "datetime",
+    "microsecond",
+    "nanosecond",
+    "strftime",
+    "time_t",
+    "timestamp"
+  ],
+  "license": "MIT",
+  "main": "./timestamp.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kawanet/timestamp-nano.git"
+  },
+  "scripts": {
+    "build": "make",
+    "fixpack": "fixpack",
+    "jshint": "./node_modules/.bin/jshint .",
+    "mocha": "./node_modules/.bin/mocha test/*.js",
+    "prepack": "npm run build && npm test",
+    "test": "make test",
+    "test-browser": "make test-browser"
+  },
+  "type": "commonjs",
+  "typings": "typings/timestamp.d.ts"
+}

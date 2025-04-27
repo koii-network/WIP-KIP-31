@@ -1,0 +1,26 @@
+{
+  "name": "bitcoin-mining-pool",
+  "description": "A Bitcoin mining pool implementation on Koii",
+  "version": "1.0.0",
+  "author": "Koii Network",
+  "license": "MIT",
+  "main": "src/main.py",
+  "dependencies": {
+    "python": "3.13",
+    "sqlite3": "3.35.0",
+    "pytest": "7.4.3"
+  },
+  "endpoints": {
+    "task": "/task/:roundNumber",
+    "submission": "/submission/:roundNumber",
+    "audit": "/audit",
+    "healthz": "/healthz"
+  },
+  "configuration": {
+    "port": 8085,
+    "log_level": "INFO",
+    "db_path": "data/shares.db",
+    "workers": 4,
+    "timeout": 120
+  }
+} 

@@ -1,0 +1,77 @@
+# Task Name: (Required)
+task_name: 'Bitcoin Mining Pool Task'
+
+# Task Author: (Required)
+author: 'Koii Network'
+
+# Task Description: (Required)
+description: 'A Koii task for managing Bitcoin mining pool operations on the Koii Network'
+
+# Repository URL: (Required)
+repositoryUrl: 'https://github.com/koii-network/btc-mining-pool'
+
+# Image URL: (Required) Will be displayed in desktop node
+imageUrl: 'https://raw.githubusercontent.com/koii-network/btc-mining-pool/main/assets/logo.png'
+
+# Info URL: (Required) Will be displayed in desktop node
+infoUrl: 'https://github.com/koii-network/btc-mining-pool'
+
+# Task executable network: (Required | DEVELOPMENT, ARWEAVE, or IPFS)
+task_executable_network: 'IPFS'
+
+# Task audit program: (Required)
+task_audit_program: 'dist/main.js'
+
+# Round time: (Required)
+round_time: 1500
+
+# Audit window: (Required)
+audit_window: 350
+
+# Submission window: (Required)
+submission_window: 350
+
+# Minimum stake amount: (Required)
+minimum_stake_amount: 10
+
+# Task Bounty Type: (Required | KOII or KPL)
+task_type: 'KOII'
+token_type: '4qayyw53kWz6GzypcejjT1cvwMXS1qYLSMQRE8se3gTv'
+
+# Total bounty amount: (Required)
+total_bounty_amount: 2000
+
+# Bounty amount per round: (Required)
+bounty_amount_per_round: 10
+
+# Allowed failed distributions: (Required)
+allowed_failed_distributions: 3
+
+# Space: (Required)
+space: 1
+
+# Requirement Tags: (Optional)
+requirementsTags:
+  - type: CPU
+    value: '2-core'
+  - type: RAM
+    value: '4 GB'
+  - type: STORAGE
+    value: '10 GB'
+  - type: TASK_VARIABLE
+    value: 'BITCOIN_RPC_URL'
+  - type: ADDON
+    value: 'ORCA_TASK'
+    description: 'The RPC URL for Bitcoin Core'
+  - type: TASK_VARIABLE
+    value: 'BITCOIN_RPC_USER'
+    description: 'The RPC username for Bitcoin Core'
+  - type: TASK_VARIABLE
+    value: 'BITCOIN_RPC_PASS'
+    description: 'The RPC password for Bitcoin Core'
+
+# Tags
+tags: ["bitcoin", "mining", "pool", "crypto"]
+
+# Environment: (Required | TEST or PRODUCTION)
+environment: "TEST" 

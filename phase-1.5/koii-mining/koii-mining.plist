@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.koii-mining</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/almorris/btc-koii/phase-1.5/koii-mining/start.sh</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardErrorPath</key>
+    <string>/Users/almorris/btc-koii/phase-1.5/logs/error.log</string>
+    <key>StandardOutPath</key>
+    <string>/Users/almorris/btc-koii/phase-1.5/logs/output.log</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>PYTHONPATH</key>
+        <string>/Users/almorris/btc-koii/phase-1.5/koii-mining</string>
+    </dict>
+</dict>
+</plist>

@@ -1,0 +1,120 @@
+{
+  "name": "web3.storage",
+  "version": "4.5.5",
+  "description": "API client for web3.storage",
+  "type": "module",
+  "license": "(Apache-2.0 OR MIT)",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/web3-storage/web3.storage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/web3-storage/web3.storage/issues"
+  },
+  "homepage": "https://github.com/web3-storage/web3.storage#readme",
+  "scripts": {
+    "test": "npm-run-all -p -r mock:api test:all",
+    "test:all": "run-s test:web test:cjs test:esm",
+    "test:size": "npx bundlesize",
+    "test:web": "API_PORT=1337 playwright-test test/*.spec.js",
+    "test:cjs": "API_PORT=1337 mocha dist/test/*.spec.cjs --exit",
+    "test:esm": "API_PORT=1337 hundreds mocha test/*.spec.js --exit",
+    "mock:api": "smoke -h 127.0.0.1 -p 1337 --hooks test/mocks/hooks.js test/mocks/api",
+    "build": "run-s clean build:*",
+    "build:cjs": "rollup --config --silent rollup.config.js",
+    "build:esm": "rollup --config rollup.esm.config.js",
+    "build:tsc": "tsc --build",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && npx codecov",
+    "typedoc": "typedoc --entryPoints src  --out ../../docs/client",
+    "prepare": "npm run build",
+    "clean": "del dist"
+  },
+  "dependencies": {
+    "@ipld/car": "^3.1.4",
+    "@web-std/blob": "^3.0.4",
+    "@web-std/fetch": "^4.1.2",
+    "@web-std/file": "^3.0.2",
+    "@web3-storage/parse-link-header": "^3.1.0",
+    "browser-readablestream-to-it": "^1.0.3",
+    "carbites": "^1.0.6",
+    "cborg": "^1.8.0",
+    "files-from-path": "^0.2.4",
+    "ipfs-car": "^0.7.0",
+    "libp2p-crypto": "^0.21.0",
+    "p-retry": "^4.5.0",
+    "streaming-iterables": "^6.2.0",
+    "throttled-queue": "^2.1.2",
+    "uint8arrays": "^3.0.0",
+    "w3name": "^1.0.6"
+  },
+  "devDependencies": {
+    "@ipld/dag-json": "^8.0.7",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@types/mocha": "9.0.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "del-cli": "^4.0.0",
+    "hundreds": "0.0.9",
+    "mocha": "9.1.3",
+    "multiformats": "^9.5.8",
+    "npm-run-all": "^4.1.5",
+    "nyc": "15.1.0",
+    "playwright-test": "^7.2.2",
+    "randombytes": "^2.1.0",
+    "rollup": "2.63.0",
+    "rollup-plugin-multi-input": "1.3.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "smoke": "^3.1.1",
+    "typedoc": "0.22.10",
+    "uvu": "0.5.3"
+  },
+  "types": "./dist/src/lib.d.ts",
+  "module": "./src/lib.js",
+  "main": "./dist/src/lib.cjs",
+  "exports": {
+    ".": {
+      "browser": "./src/lib.js",
+      "require": "./dist/src/lib.cjs",
+      "node": "./src/lib.js"
+    },
+    "./src/platform.js": {
+      "browser": "./src/platform.web.js",
+      "require": "./dist/src/platform.cjs",
+      "node": "./src/platform.js"
+    },
+    "./name": {
+      "browser": "./src/name.js",
+      "require": "./dist/src/name.cjs",
+      "node": "./src/name.js"
+    },
+    "./dist/bundle.esm.min.js": {
+      "browser": "./dist/bundle.esm.min.js",
+      "require": "./dist/bundle.esm.min.js",
+      "node": "./dist/bundle.esm.min.js"
+    }
+  },
+  "browser": {
+    "./src/platform.js": "./src/platform.web.js"
+  },
+  "typesVersions": {
+    "*": {
+      "name": [
+        "dist/src/name.d.ts"
+      ]
+    }
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/bundle.esm.min.js",
+      "maxSize": "200 kB"
+    }
+  ],
+  "files": [
+    "src",
+    "!src/test",
+    "dist",
+    "!dist/test"
+  ]
+}

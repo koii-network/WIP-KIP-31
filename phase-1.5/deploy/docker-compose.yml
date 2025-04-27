@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mining_pool:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./config:/app/config
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - PORT=8085
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DB_PATH=/app/data/shares.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3 

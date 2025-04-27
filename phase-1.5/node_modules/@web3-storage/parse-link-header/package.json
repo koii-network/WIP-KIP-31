@@ -1,0 +1,51 @@
+{
+  "name": "@web3-storage/parse-link-header",
+  "version": "3.1.0",
+  "description": "Parses a link header and returns paging information for each contained link.",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "test": "tap test/*.js",
+    "build": "npm run build:cjs",
+    "build:cjs": "rollup --config rollup.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/web3-storage/parse-link-header.git"
+  },
+  "homepage": "https://github.com/web3-storage/parse-link-header",
+  "devDependencies": {
+    "rollup": "^2.68.0",
+    "tap": "^15.1.6",
+    "tape": "^5.5.2"
+  },
+  "keywords": [
+    "parse",
+    "link",
+    "header",
+    "weblink",
+    "web",
+    "link",
+    "rel"
+  ],
+  "author": {
+    "name": "Thorsten Lorenz",
+    "email": "thlorenz@gmx.de",
+    "url": "http://thlorenz.com"
+  },
+  "license": "MIT",
+  "engine": {
+    "node": ">=14"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "dist"
+  ]
+}

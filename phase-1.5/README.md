@@ -4,7 +4,7 @@ This document provides instructions for deploying the Koii Mining Task API.
 
 ## Prerequisites
 
-- Linux server with systemd
+- macOS 10.15 or later
 - Python 3.x
 - SQLite3
 - Ports 8080 and 8082 available
@@ -20,12 +20,12 @@ cd phase-1.5
 
 2. Make the deployment script executable:
 ```bash
-chmod +x deploy.sh
+chmod +x deploy-macos.sh
 ```
 
 3. Run the deployment script:
 ```bash
-./deploy.sh
+./deploy-macos.sh
 ```
 
 ## Configuration
@@ -40,17 +40,17 @@ The service can be configured using environment variables:
 
 Start the service:
 ```bash
-sudo systemctl start koii-mining
+sudo launchctl load /Library/LaunchDaemons/com.koii-mining.plist
 ```
 
 Stop the service:
 ```bash
-sudo systemctl stop koii-mining
+sudo launchctl unload /Library/LaunchDaemons/com.koii-mining.plist
 ```
 
 Check service status:
 ```bash
-sudo systemctl status koii-mining
+sudo launchctl list | grep koii-mining
 ```
 
 ## API Endpoints
@@ -63,8 +63,8 @@ sudo systemctl status koii-mining
 ## Monitoring
 
 - Prometheus metrics available on port 8082
-- Application logs in `/opt/koii-mining/logs/`
-- System logs via journalctl: `journalctl -u koii-mining`
+- Application logs in `/var/log/koii-mining/`
+- System logs via Console.app
 
 ## Backup
 
@@ -79,17 +79,17 @@ Backups are stored in `/opt/koii-mining/backups/` and automatically cleaned up a
 
 1. Check service status:
 ```bash
-sudo systemctl status koii-mining
+sudo launchctl list | grep koii-mining
 ```
 
 2. View logs:
 ```bash
-journalctl -u koii-mining
+tail -f /var/log/koii-mining/error.log
 ```
 
 3. Check application logs:
 ```bash
-tail -f /opt/koii-mining/logs/error.log
+tail -f /var/log/koii-mining/output.log
 ```
 
 ## Support

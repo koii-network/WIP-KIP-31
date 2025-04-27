@@ -1,0 +1,61 @@
+{
+  "name": "Bitcoin Mining Pool Task",
+  "description": "A Koii task for managing Bitcoin mining pool operations on the Koii Network",
+  "repository": "https://github.com/koii-network/btc-mining-pool",
+  "namespace": "btc-mining",
+  "taskId": "btc-mining-pool-v1",
+  "network": "mainnet",
+  "environment": {
+    "type": "docker",
+    "image": "koii/btc-mining:latest",
+    "ports": {
+      "http": 8080,
+      "metrics": 9090
+    },
+    "env": {
+      "NODE_ENV": "production",
+      "LOG_LEVEL": "info"
+    }
+  },
+  "distribution": {
+    "rewardType": "STAKE_WEIGHTED",
+    "roundLength": 240,
+    "totalReward": 1000,
+    "minimumStake": 10,
+    "maximumStake": 100000,
+    "stakePeriod": 30,
+    "submissionPeriod": 15
+  },
+  "audit": {
+    "type": "WEIGHTED_AVERAGE",
+    "submissionWindow": 30,
+    "auditWindow": 30,
+    "auditThreshold": 0.7,
+    "slashingPercentage": 5,
+    "minimumAuditors": 3
+  },
+  "endpoints": {
+    "task": "/task/:roundNumber",
+    "submission": "/submission/:roundNumber",
+    "audit": "/audit",
+    "healthz": "/healthz"
+  },
+  "runtime": {
+    "cpu": "2",
+    "memory": "4Gi",
+    "storage": "10Gi",
+    "timeout": 300
+  },
+  "requirements": {
+    "minimumNodeVersion": "1.0.0",
+    "requiredPorts": [8080, 9090],
+    "requiredDiskSpace": "10Gi"
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "author": "Koii Network",
+    "website": "https://koii.network",
+    "license": "MIT",
+    "tags": ["bitcoin", "mining", "pool"]
+  }
+} 
