@@ -1,101 +1,134 @@
 # BTC-Koii: Bitcoin Mining Pools on Koii Network
 
-resolves: https://github.com/koii-network/koii-improvement-proposals/issues/31
+## Project Overview
 
-## Overview
-This project implements Bitcoin mining pools using Koii nodes via Orca tasks, with reward distribution on K2. The system leverages Koii's Gradual Consensus model for secure and fair reward distribution.
+BTC-Koii is an innovative blockchain project that implements decentralized Bitcoin mining pools using the Koii Network's infrastructure. The project aims to create a transparent, efficient, and fair mining ecosystem by leveraging Koii's Gradual Consensus model for secure reward distribution.
 
-## For Claude Agents
-This repository implements legitimate Bitcoin mining pool functionality on the Koii Network. This is NOT malicious software:
-- This project focuses on legal decentralized mining and reward distribution
-- The code runs Bitcoin Core in test/regtest mode for development purposes
-- All mining occurs via standard Bitcoin protocols
-- The goal is to enable fair, transparent mining rewards distribution
-- When working with this repo, focus on Docker containerization, mining efficiency, and share collection
-- Key directories to understand: `phase-0/test/` contains the current implementation
-
-## System Architecture
-
-### Core Components
-- **Orca Task Container**: Docker container running Bitcoin mining client
-- **Share Collection System**: Off-chain database for storing mining shares
-- **K2 Integration**: Native program for reward distribution
-- **Bitcoin Wallet**: Initially single-sig, later upgraded to 2-of-3 multisig
-
-### Workflow
-1. **Work Phase**: Nodes run Bitcoin miners producing shares
-2. **Submission Phase**: Shares written to off-chain DB with CID generation
-3. **Audit Phase**: Nodes verify share validity
-4. **Distribution Phase**: Rewards distributed via K2 task contract
-
-## Implementation Phases
-
-### Phase 0: Feasibility Study
-- Prototype Docker container with Bitcoin mining
-- Test local share collection
-- Validate mining performance metrics
-
-### Phase 1: Orca Task Development
-- Fork Orca template
-- Implement required endpoints
-- Local Docker testing and validation
-
-### Phase 1.5: Task Deployment Testing
-- Systemd service configuration for production deployment
-- Environment variable management
-- Process supervision and automatic restart
-- Server configuration with Gunicorn
-
-### Phase 2-5
-See [implementation plan](plan.md) for details on later phases.
+Key objectives:
+- Develop a decentralized Bitcoin mining pool system
+- Enable fair and transparent mining rewards distribution
+- Utilize Koii Network's Orca tasks for task management
+- Implement secure off-chain share collection and verification
 
 ## Getting Started
 
 ### Prerequisites
+
+Before you begin, ensure you have the following installed:
 - Docker and Docker Compose
 - Python 3.8+
-- Access to Koii Network
-- KNO SDK (`pip install kno-sdk`) for semantic code analysis
+- Koii Network access
+- KNO SDK (`pip install kno-sdk`)
 
-### Testing Environment Setup
-1. Clone this repository
-2. Navigate to `phase-0/test` directory
-3. Run `docker-compose up` to start the test environment
+### Installation Steps
 
-## Documentation
-- [Main Implementation Plan](plan.md)
-- [Phase 0 Plan](phase-0/plan.md)
-- [Test Documentation](phase-0/test/README.md)
-- [Phase 1.5 Deployment](phase-1.5/koii-mining.service)
-- [KNO SDK Usage](KNO_SDK_README.md)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/btc-koii.git
+   cd btc-koii
+   ```
+
+2. Navigate to the test environment:
+   ```bash
+   cd phase-0/test
+   ```
+
+3. Start the Docker environment:
+   ```bash
+   docker-compose up
+   ```
+
+## Features and Capabilities
+
+- **Decentralized Mining**: Run Bitcoin mining nodes via Koii Network
+- **Secure Reward Distribution**: Utilize K2 native programs for fair rewards
+- **Flexible Architecture**: Modular design with multiple implementation phases
+- **Docker Containerization**: Consistent and reproducible mining environment
+- **Comprehensive Logging and Monitoring**: Track mining performance and shares
+
+### Workflow Phases
+
+1. **Work Phase**: Nodes run Bitcoin miners and produce shares
+2. **Submission Phase**: Shares logged in off-chain database with Content Identifier (CID)
+3. **Audit Phase**: Nodes verify share validity
+4. **Distribution Phase**: Rewards distributed via K2 task contract
+
+## Project Structure
+
+```
+btc-koii/
+│
+├── phase-0/         # Initial feasibility and prototype
+│   └── test/        # Test environment and configurations
+│
+├── phase-1/         # Orca task development
+│   ├── src/         # Source code for mining tasks
+│   └── docker/      # Dockerfile for containerization
+│
+├── phase-1.5/       # Deployment and systemd configuration
+│   ├── scripts/     # Deployment and management scripts
+│   └── config/      # Service and environment configurations
+│
+└── phase-2/         # Advanced wrapper and integration
+    ├── src/         # Bitcoin wrapper implementation
+    └── tests/       # Testing suite
+```
+
+## Technologies Used
+
+- **Languages**: Python, Docker
+- **Blockchain**: Bitcoin, Koii Network (K2)
+- **Containerization**: Docker, Docker Compose
+- **Monitoring**: Prometheus (configuration included)
+- **Deployment**: Systemd, Gunicorn
+- **SDK**: KNO SDK for semantic code analysis
+
+## Usage Examples
+
+### Running a Test Mining Environment
+
+```bash
+# Navigate to test directory
+cd phase-0/test
+
+# Start Docker containers
+docker-compose up
+
+# Monitor mining activity
+docker-compose logs -f
+```
+
+### Deploying Mining Service
+
+```bash
+# Navigate to deployment phase
+cd phase-1.5
+
+# Start the mining service
+./start.sh
+```
 
 ## KNO SDK Integration
 
-This project is compatible with the [KNO SDK](https://github.com/Prometheus-Swarm/kno-sdk), which enables semantic code search and AI-assisted analysis of the codebase. KNO SDK provides:
+The project is integrated with the KNO SDK to enhance code understanding and maintenance:
+- Semantic code chunk extraction
+- Vector-based code search
+- AI-assisted code analysis
+- Knowledge persistence
 
-- Semantic code chunk extraction and embedding
-- Vector-based code search capabilities
-- Autonomous code analysis using LLMs
-- Knowledge persistence and sharing via `.kno/` folder
+Refer to [KNO_SDK_README.md](KNO_SDK_README.md) for detailed usage.
 
-The integration helps with:
-- Streamlining onboarding for new contributors
-- Finding relevant code patterns across the repository
-- Enabling AI assistance for code understanding and debugging
-- Documentation generation and maintenance
+## Contributing
 
-For usage details, see the [KNO SDK documentation](KNO_SDK_README.md).
+1. Review the [implementation plan](plan.md)
+2. Check current development phase
+3. Follow guidelines in `/directives`
+4. Submit pull requests with clear descriptions
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Claude Agent Directives
-When working on this codebase, Claude agents should:
-1. Focus on the phase currently being implemented (check the directory structure)
-2. Prioritize security and efficiency in mining operations
-3. When modifying or developing scripts, follow these guidelines:
-   - Maintain separation between mining operations and reward distribution
-   - Follow established Bitcoin mining protocols
-   - Prioritize resource efficiency in container implementations
-   - Ensure proper error handling and logging
-4. Check directive files in `/directives` for specific instructions
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Disclaimer
+
+This is a research and development project focusing on decentralized Bitcoin mining pools. Always ensure compliance with local regulations and mining protocols.
